@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+*{
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.light-blue{
+  --color-alpha:#004DD736;
+  --color-0:#D1F0FF;
+  --color-1:#76D8FF;
+  --color-2:#079CFF;
+  --color-3:#0076FF;
+  --color-4:#005DFF;
+  --color-5:#004DD7;
+}
+
+.light-rose{
+  --color-alpha:#f43f5d36;
+  --color-0:#fff1f2;
+  --color-1:#ffe4e6;
+  --color-2:#fecdd3;
+  --color-3:#fda4af;
+  --color-4:#fb7185;
+  --color-5:#f43f5e;
+}
