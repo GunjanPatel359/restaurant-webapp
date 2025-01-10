@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { login } from "@/actions/user";
+import { getUserInfo, login } from "@/actions/user";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -19,11 +19,30 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    async function userAuth() {
+      try {
+        setLoading(true);
+        const user = await getUserInfo();
+        console.log(user);
+        if (user.success) {
+          router.push("/profile");
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoading(false);
+
+      }
+    }
+    userAuth();
+  }, []);
+
   const onSubmit = async (data) => {
     setLoading(true);
     try {
       const res = await login(data.email, data.password);
-      console.log(res)
+      console.log(res);
       if (res.data.success) {
         toast.success("Logged in successfully");
         router.push("/profile");
@@ -41,10 +60,12 @@ const LoginPage = () => {
       {!loading ? (
         <div className="min-w-screen min-h-screen items-center justify-center flex">
           <div className="w-[470px] m-auto flex flex-col gap-3 shadow border py-[90px] border-color3">
-            <h1 className="text-[30px] font-[600] text-color4 mx-auto">Login In</h1>
+            <h1 className="text-[30px] font-[600] text-color4 mx-auto">
+              Login In
+            </h1>
             <form
-               onSubmit={handleSubmit((data, e) => {
-                e.preventDefault(); 
+              onSubmit={handleSubmit((data, e) => {
+                e.preventDefault();
                 onSubmit(data);
               })}
               className="flex flex-col gap-4 justify-center mx-auto"
@@ -99,18 +120,21 @@ const LoginPage = () => {
 
             <div className="mx-auto w-[250px]">
               {errors.email && (
-                <div className="text-red-500 text-[15px] overflow-y-auto text-justify">*
-                  {errors.email.message}
+                <div className="text-red-500 text-[15px] overflow-y-auto text-justify">
+                  *{errors.email.message}
                 </div>
               )}
               {errors.password && (
-                <div className="text-red-500 text-[15px] text-justify">*
-                  {errors.password.message}
+                <div className="text-red-500 text-[15px] text-justify">
+                  *{errors.password.message}
                 </div>
               )}
             </div>
 
-            <span className="text-[15px] mx-auto text-blue-700 underline" onClick={() => router.push('/sign-up')}>
+            <span
+              className="text-[15px] mx-auto text-blue-700 underline"
+              onClick={() => router.push("/sign-up")}
+            >
               {`Don't have an Account?`}
             </span>
           </div>
