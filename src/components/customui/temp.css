@@ -1,0 +1,53 @@
+/* Reset default appearance */
+.thumb,
+.thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.thumb {
+    pointer-events: none;
+    position: absolute;
+    height: 0;
+    width: 100%;
+    outline: none;
+}
+
+/* Chrome Thumb Style */
+.thumb::-webkit-slider-thumb {
+    background-color: var(--color-5);
+    border: none;
+    border-radius: 50%;
+    border: 1px 1px var(--color-5);
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    margin-top: 0px;
+    pointer-events: all;
+    position: relative;
+}
+
+/* Firefox Thumb Style */
+.thumb::-moz-range-thumb {
+    background-color: var(--color-5);
+    border: none;
+    border-radius: 50%;
+    border: 1px 1px var(--color-5);
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    margin-top: 0px;
+    pointer-events: all;
+    position: relative;
+}
+
+/* Track styling */
+.track {
+    width: 100%; /* Adjust to 100% width of container */
+    position: relative;
+    height: 5px;
+    background-color: var(--color-1);
+    /* background-color: #e0e0e0; */
+    border-radius: 3px;
+    z-index: 1;
+}
