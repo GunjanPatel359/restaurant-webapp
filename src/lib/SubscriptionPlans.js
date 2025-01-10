@@ -2,7 +2,7 @@ const SubscriptionPlans=[{
     id:"subscription_pack1",
     title: 'Starter',
     description: 'Perfect for trying out first time',
-    price: '1',
+    price: '0',
     duration: '',
     highlight: 'Key features',
     hotelLimits:1,
