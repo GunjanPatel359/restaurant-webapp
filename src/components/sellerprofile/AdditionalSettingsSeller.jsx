@@ -13,7 +13,7 @@ const AdditionalSettingsSeller = () => {
             <div className="border mb-5 border-color3"></div>
             <div className="border p-5 shadow text-color4 shadow-color4">
               <div className="mb-3 font-semibold text-color5">
-                Color Settings
+                Under Development
               </div>
             </div>
           </div>

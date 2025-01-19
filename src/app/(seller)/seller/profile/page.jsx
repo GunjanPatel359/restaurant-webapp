@@ -1,26 +1,36 @@
 "use client"
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic';
 
 import { toast } from 'react-toastify'
 
 import { User } from 'lucide-react'
 import { BiPurchaseTagAlt } from "react-icons/bi";
 import { HiOutlineBuildingStorefront } from "react-icons/hi2";
-
-import SellerProfileHeader from '@/components/sellerprofile/SellerProfileHeader';
-import SlideMenu from '@/components/slidemenu/SlideMenu'
-
-import SellerInfo from '@/components/sellerprofile/SellerInfo'
-import SellerResturantInfo from '@/components/sellerprofile/SellerResturantInfo'
-import SellerSubscription from '@/components/sellerprofile/SellerSubscription'
-import AdditionalSettingsSeller from "@/components/sellerprofile/AdditionalSettingsSeller.jsx"
 import { LuSettings2 } from 'react-icons/lu'
 import { useRouter } from 'next/navigation';
 import { getSellerInfo } from '@/actions/seller';
 
+import SellerProfileHeader from '@/components/sellerprofile/SellerProfileHeader';
+import SlideMenu from '@/components/slidemenu/SlideMenu'
+import { LoaderSelf } from '@/components/loader/loader';
+
+const SellerInfo = dynamic(() => import('@/components/sellerprofile/SellerInfo'), {
+    loading: () => <LoaderSelf/>, // Optional loading state
+});
+const SellerResturantInfo = dynamic(() => import('@/components/sellerprofile/SellerResturantInfo'), {
+    loading: () => <LoaderSelf/>,
+});
+const SellerSubscription = dynamic(() => import('@/components/sellerprofile/SellerSubscription'), {
+    loading: () => <LoaderSelf/>,
+});
+const AdditionalSettingsSeller = dynamic(() => import('@/components/sellerprofile/AdditionalSettingsSeller.jsx'), {
+    loading: () => <LoaderSelf/>,
+});
+
 const SellerProfilePage = () => {
     const router = useRouter()
-    const [seller,setSeller]=useState(null)
+    const [seller, setSeller] = useState(null)
     const [select, setSelected] = useState(0)
     const [loading, setLoading] = useState(true)
 
@@ -62,7 +72,7 @@ const SellerProfilePage = () => {
 
                             <SlideMenu select={select} setSelected={setSelected} menuItemList={menuItemList} />
 
-                            <div className='w-full'>
+                            <div className='w-full h-full'>
                                 {select === 0 && <SellerInfo seller={seller} setSeller={setSeller} />}
                                 {select === 1 && <SellerResturantInfo />}
                                 {select === 2 && <SellerSubscription />}
@@ -71,7 +81,9 @@ const SellerProfilePage = () => {
                         </div>
                     </div>
                 </div>
-            ) : ("")}
+            ) : (
+                <LoaderSelf/>
+            )}
         </div>
     )
 }

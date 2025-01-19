@@ -185,7 +185,6 @@ const SellerRestaurantOrderTablePage = () => {
                     )
                 }
             </div>
-            {/* <SellerOrderTableManageProvider /> */}
         </div>
     )
 }

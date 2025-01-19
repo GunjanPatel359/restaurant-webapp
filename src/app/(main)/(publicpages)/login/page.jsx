@@ -7,6 +7,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { getUserInfo, login } from "@/actions/user";
+import { LoaderSelf } from "@/components/loader/loader";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -23,9 +24,9 @@ const LoginPage = () => {
     async function userAuth() {
       try {
         setLoading(true);
-        const user = await getUserInfo();
-        console.log(user);
-        if (user.success) {
+        const res = await getUserInfo();
+        console.log(res);
+        if (res.success) {
           router.push("/profile");
         }
       } catch (error) {
@@ -43,7 +44,7 @@ const LoginPage = () => {
     try {
       const res = await login(data.email, data.password);
       console.log(res);
-      if (res.data.success) {
+      if (res.success) {
         toast.success("Logged in successfully");
         router.push("/profile");
       } else {
@@ -140,7 +141,7 @@ const LoginPage = () => {
           </div>
         </div>
       ) : (
-        ""
+        <LoaderSelf/>
       )}
     </>
   );

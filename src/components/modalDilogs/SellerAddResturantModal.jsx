@@ -24,11 +24,19 @@ const SellerAddResturantModal = () => {
   const [cusineTypes, setCusionTypes] = useState([])
   const [loading, setloading] = useState(false)
 
-  const handleImageChange = e => {
+  const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setPreviewImage(e.target.files[0])
+      const file = e.target.files[0];
+      const fileSizeInKB = file.size / 1024; // Convert file size to KB
+  
+      if (fileSizeInKB > 500) {
+        toast.warning("File size must be less than 500 KB.");
+        return;
+      }
+  
+      setPreviewImage(file); // Update state with the valid file
     }
-  }
+  };
 
   const handlezipkeychange = e => {
     const allowedKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 8, 13]

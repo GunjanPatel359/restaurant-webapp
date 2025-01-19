@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { FaRegUser } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 
-const ProfileInfo = ({ user,setUser }) => {
+const ProfileInfo = ({ user, setUser }) => {
 
   const fileInputRef = useRef(null)
   const [previewImage, setPreviewImage] = useState(null)
@@ -18,11 +18,19 @@ const ProfileInfo = ({ user,setUser }) => {
   const handleImageChange = async (e) => {
     try {
       if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0];
+        const fileSizeInKB = file.size / 1024; // Convert file size to KB
+
+        // Validate file size
+        if (fileSizeInKB > 500) {
+          toast.warning("File size must be less than 500 KB.");
+          return;
+        }
         const newForm = new FormData();
         newForm.append('userimage', e.target.files[0]);
 
         const res = await setUserImage(newForm)
-        if(res.success){
+        if (res.success) {
           setUser(res.user)
           setPreviewImage(res.user.avatar)
           toast.success("successfully changed the profile image");

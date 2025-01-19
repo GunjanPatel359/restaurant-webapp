@@ -1,4 +1,5 @@
 "use client"
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react"
 import { MdOutlineTableBar } from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
@@ -6,17 +7,23 @@ import { useParams, useRouter } from "next/navigation"
 import { toast } from "react-toastify";
 import SellerProfileHeader from "@/components/sellerprofile/SellerProfileHeader";
 import SlideMenu from "@/components/slidemenu/SlideMenu";
-import OrderTables from "@/components/restaurantManage/OrderTables";
-import ManageOrders from "@/components/restaurantManage/ManageOrders";
 import { getSellerInfo } from "@/actions/seller";
 import { checkIsMember } from "@/actions/member";
+import { LoaderSelf } from "@/components/loader/loader";
+
+const OrderTables = dynamic(()=>import("@/components/restaurantManage/OrderTables"),{
+    loading: ()=><LoaderSelf/>,
+})
+const ManageOrders = dynamic(()=>import("@/components/restaurantManage/ManageOrders"),{
+    loading: ()=><LoaderSelf/>,
+})
 
 const SellerRestaurantManagePage = () => {
     const params = useParams()
     const hotelId = params.hotelId
     const router = useRouter()
 
-    const [seller,setSeller]=useState()
+    const [seller, setSeller] = useState()
     const [select, setSelected] = useState(0)
     const [loading, setLoading] = useState(true)
 
@@ -26,13 +33,13 @@ const SellerRestaurantManagePage = () => {
                 const res = await getSellerInfo()
                 if (res.success) {
                     setSeller(res.seller)
-                    return 
+                    return
                 }
                 router.push('/seller/login')
             } catch (err) {
                 toast.error(err)
                 router.push("/seller/login")
-            } 
+            }
         }
 
         const memberInfo = async () => {
@@ -73,9 +80,7 @@ const SellerRestaurantManagePage = () => {
                     </div>
                 </div>
             ) : (
-                <div>
-                </div>
-                // <LoadingSpinner /> // Optional loading component
+                <LoaderSelf />
             )}
         </div>
     );

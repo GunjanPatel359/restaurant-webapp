@@ -30,6 +30,7 @@ export const getUserInfo=async()=>{
         const user = await isAuthenticated()
         return { success: true,  user: JSON.parse(JSON.stringify(user)) };
     } catch (error) {
+        console.log(error)
         return { success: false, message: error.message };
     }
 }

@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import CategoryOpen from "./CategoryOpen";
 import { getAllFoodItems } from "@/actions/fooditem";
+import { LoaderSelf } from "../loader/loader";
 
 const RestaurantFoodInfo = () => {
     const params=useParams()
@@ -28,11 +29,13 @@ const RestaurantFoodInfo = () => {
             <div className="mt-2 w-full">
                 {/* <div className="">hello</div> */}
                 <div className="m-2 lg:w-[70%] mx-auto">
-                    {foodInfo && (
+                    {foodInfo.length>0?(
                         foodInfo.map((item,index)=>{
                             return (
                             <CategoryOpen item={item} key={index}/>)
                         })
+                    ):(
+                        <LoaderSelf/>
                     )}
                 </div>
             </div>

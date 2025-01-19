@@ -5,6 +5,8 @@ import ProfileHeader from '@/components/profile/ProfileHeader';
 import FoodInfo from '@/components/restaurant/FoodInfo';
 import { getUserInfo } from '@/actions/user';
 import { getFoodItemById } from '@/actions/fooditem';
+import { toast } from 'react-toastify';
+import { LoaderSelf } from '@/components/loader/loader';
 
 const FoodItemPage = () => {
     const params=useParams()
@@ -30,6 +32,7 @@ const FoodItemPage = () => {
                     setFoodItem(res.foodItem)
                 }
             } catch (error) {
+                toast.error("somthing went wrong")
                 console.log(error)
             }
         }
@@ -43,7 +46,7 @@ const FoodItemPage = () => {
     }
 
     if(!foodItem){
-        return <div>Food Item not found</div>
+        return <LoaderSelf/>
     }
 
     console.log(foodItem)

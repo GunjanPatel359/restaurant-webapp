@@ -7,8 +7,27 @@ import Link from 'next/link'
 import { User } from 'lucide-react'
 import { SERVER_URL } from '@/lib/server'
 
-const HeaderPublic = ({user}) => {
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import { IoMdExit } from 'react-icons/io'
+
+const HeaderPublic = ({ user }) => {
   const router = useRouter()
+  const handleLogout = async () => {
+    try {
+      const res = await userLogout()
+      if (res.success) {
+        toast.success('Logged out successfully')
+        router.push('/')
+      }
+    } catch (error) {
+      toast.error("somthing went wrong")
+    }
+  }
   return (
     <div className='w-full shadow-md border-b border-color0'>
       <div className='bg-gradient-to-tr from-color4 to-color5 w-full'>
@@ -24,14 +43,30 @@ const HeaderPublic = ({user}) => {
         </span> */}
           {
             user ? (<>
-              {user?.avatar ? (
-                <span className='border-2 border-color4 rounded-full min-h-fit p-[2px] my-auto cursor-pointer bg-white' onClick={() => router.push('/profile')}>
-                  <img className='rounded-full w-[50px] h-[50px]' src={`${SERVER_URL}/uploads/${user.avatar}`} />
-                </span>) : (
-                <span className='border-2 border-white rounded-full my-auto p-1 cursor-pointer' onClick={() => router.push('/profile')}>
-                  <User size={30} color="white" className='text-color5' />
-                </span>
-              )}
+              <div className="flex">
+                {user?.avatar ? (
+                  <span className='border-2 border-color4 rounded-full min-h-fit p-[2px] my-auto cursor-pointer bg-white' onClick={() => router.push('/profile')}>
+                    <img className='rounded-full w-[43px] h-[43px]' src={`${SERVER_URL}/uploads/${user.avatar}`} />
+                  </span>) : (
+                  <span className='border-2 border-white rounded-full my-auto p-1 cursor-pointer' onClick={() => router.push('/profile')}>
+                    <User size={30} color="white" className='text-color5' />
+                  </span>
+                )}
+                <div className="flex">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="ml-2 rounded-full p-1 text-red-500 border border-red-500 bg-white cursor-pointer hover:text-red-400 hover:border-red-400 hover:shadow-md shadow transition-all my-auto" onClick={handleLogout}>
+                        <IoMdExit size={28} />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-red-500">Logout</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                </div>
+              </div>
             </>) : (
               <>
                 <span className='text-center items-center justify-center flex'>

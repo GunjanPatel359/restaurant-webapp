@@ -31,6 +31,7 @@ export const getSellerInfo = async () => {
       seller: JSON.parse(JSON.stringify(seller)),
     };
   } catch (error) {
+    console.log(error)
     throw new Error(error.message || "Failed to fetch seller information");
   }
 };

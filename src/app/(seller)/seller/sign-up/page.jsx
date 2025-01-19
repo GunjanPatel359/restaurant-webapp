@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createSeller, getSellerInfo } from '@/actions/seller'
+import { LoaderSelf } from '@/components/loader/loader'
 
 const SellerSignupPage = () => {
   const [loading,setLoading]=useState(false);
@@ -85,7 +86,7 @@ const SellerSignupPage = () => {
     <div className='w-full flex m-auto justify-center h-[100vh]'>
       <div className='lg:w-[30%] sm:w-[60%] flex m-auto justify-center border border-color3 shadow shadow-color0 p-8'>
         <div className='w-[250px]'>
-        <p className='text-center text-2xl font-bold text-color5 mb-5'>Sign Up</p>
+        <p className='text-center text-2xl font-bold text-color5 mb-5'>Seller Sign Up</p>
         <Form {...form} >
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-2'>
             <FormField
@@ -167,7 +168,9 @@ const SellerSignupPage = () => {
         </div>
       </div>
     </div>
-    ):("")}
+    ):(
+      <LoaderSelf/>
+    )}
     </div>
   )
 }

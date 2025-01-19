@@ -8,6 +8,7 @@ import OneWayScrollBar from "@/components/customui/OneWayScrollBar";
 import FoodItemOpen from "@/components/restaurant/FoodItemOpen";
 import { getUserInfo } from "@/actions/user";
 import { searchFoodItems } from "@/actions/hotel";
+import { LoaderSelf } from "@/components/loader/loader";
 
 const FoodItemsPage = () => {
 
@@ -66,7 +67,7 @@ const FoodItemsPage = () => {
 
     return (
         <>
-            {!loading && (
+            {!loading?(
                 <>
                     <div>
                         <HeaderPublic user={user} />
@@ -123,6 +124,8 @@ const FoodItemsPage = () => {
                         </div>
                     </div>
                 </>
+            ):(
+                <LoaderSelf />
             )}
 
         </>

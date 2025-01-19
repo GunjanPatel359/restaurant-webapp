@@ -11,6 +11,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai"
 import { toast } from "react-toastify";
 import { createUser, getUserInfo } from "@/actions/user";
 import { Input } from "@/components/ui/input";
+import { LoaderSelf } from "@/components/loader/loader";
 
 const SignupPage = () => {
     const [name, setName] = useState("")
@@ -106,7 +107,9 @@ const SignupPage = () => {
                         </form>
                         <Link href="/login"><p className="text-[15px] mx-auto text-blue-700 underline">Already have an existing account!</p></Link>
                     </div>
-                </div>) : ("")}
+                </div>) : (
+                    <LoaderSelf/>
+                )}
         </div>
     )
 }

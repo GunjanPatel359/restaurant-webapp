@@ -9,6 +9,7 @@ import { User } from "lucide-react"
 import { getUserRatingForHotel, submitHotelReview } from "@/actions/user"
 import { hotelPublicReview } from "@/actions/review"
 import { SERVER_URL } from "@/lib/server"
+import { LoaderSelf } from "../loader/loader"
 
 const RestaurantInfo = ({ hotel }) => {
     const [userRating, setUserRating] = useState('')
@@ -45,7 +46,7 @@ const RestaurantInfo = ({ hotel }) => {
     }, [hotel, hotel._id])
 
     if (!hotel) {
-        return <div>Loading...</div>
+        return <LoaderSelf/>
     }
 
     return (

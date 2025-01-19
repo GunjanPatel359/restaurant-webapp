@@ -45,6 +45,27 @@ export async function isSellerAuthenticated() {
         }
         return seller;
     } catch (error) {
+        console.log(error)
         throw new Error(error.message || 'Authentication failed');
+    }
+}
+
+export async function userLogout(){
+    try{
+        const cookieStore = await cookies();
+        cookieStore.delete('token');
+        return {success:true}
+    }catch(error){
+        throw new Error('Logout failed');
+    }
+}
+
+export async function sellerLogout(){
+    try {
+        const cookieStore = await cookies()
+        cookieStore.delete('seller_token')
+        return {success:true}
+    } catch (error) {
+        throw new Error('Logout failed')
     }
 }

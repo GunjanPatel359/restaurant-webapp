@@ -9,6 +9,7 @@ import OneWayScrollBar from "@/components/customui/OneWayScrollBar";
 import { getUserInfo } from "@/actions/user";
 import { SERVER_URL } from "@/lib/server";
 import { searchRestaurants } from "@/actions/hotel";
+import { LoaderSelf } from "@/components/loader/loader";
 
 const RestaurantsPage = () => {
     const router=useRouter()
@@ -64,7 +65,7 @@ const RestaurantsPage = () => {
 
     return (
         <div>
-            {!loading && (
+            {!loading?(
                 <>
                     <div>
                         <HeaderPublic user={user}/>
@@ -106,6 +107,8 @@ const RestaurantsPage = () => {
                         </div>
                     </div>
                 </>
+            ):(
+                <LoaderSelf/>
             )}
 
         </div>

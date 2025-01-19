@@ -28,11 +28,19 @@ const CreateFoodItemModal = () => {
   const [tag, setTag] = useState("")
   const [foodTypes, setFoodTypes] = useState([])
 
-  const handleImageChange = e => {
+  const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setPreviewImage(e.target.files[0])
+      const file = e.target.files[0];
+      const fileSizeInKB = file.size / 1024;
+  
+      if (fileSizeInKB > 500) {
+        toast.warning("File size must be less than 500 KB.");
+        return;
+      }
+  
+      setPreviewImage(file);
     }
-  }
+  };
 
   const handletagkeydown = e => {
     if (e.keyCode === 13 && tag) {

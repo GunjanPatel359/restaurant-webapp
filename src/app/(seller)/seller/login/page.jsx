@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getSellerInfo, sellerLogin } from '@/actions/seller'
+import { LoaderSelf } from '@/components/loader/loader'
 
 const SellerLoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -64,14 +65,15 @@ const SellerLoginPage = () => {
       const res = await sellerLogin(values)
       console.log(res)
       if (res.success) {
-        router.push("/seller/profile")
         toast.success(res.message)
+        router.push("/seller/profile")
       }
       if (!res.success) {
         toast.error(res.message)
       }
     } catch (error) {
       console.log(error)
+      toast.error(error)
     }
   }
 
@@ -81,7 +83,7 @@ const SellerLoginPage = () => {
         <div className='w-full flex m-auto justify-center h-[100vh]'>
           <div className='lg:w-[30%] sm:w-[60%] flex m-auto justify-center border border-color3 shadow shadow-color0 p-8'>
             <div className='w-[250px]'>
-              <p className='text-center text-2xl from-neutral-700 font-bold mb-5 text-color5'>Login In</p>
+              <p className='text-center text-2xl from-neutral-700 font-bold mb-5 text-color5'>Seller Login In</p>
               <Form {...form} >
                 <form onSubmit={(e) => {
                   e.preventDefault(); 
@@ -134,7 +136,9 @@ const SellerLoginPage = () => {
             </div>
           </div>
         </div>
-      ) : ("")}
+      ) : (
+        <LoaderSelf/>
+      )}
     </div>
   )
 }

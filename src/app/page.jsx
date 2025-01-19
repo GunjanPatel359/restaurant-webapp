@@ -5,10 +5,9 @@ import RatingShow from "@/components/customui/RatingShow"
 
 import { getUserInfo } from "@/actions/user"
 import { getHomeFoodItems, getHomeHotels } from "@/actions/hotel"
-import { FaDivide } from "react-icons/fa"
 import { SERVER_URL } from "@/lib/server"
 import { useRouter } from "next/navigation"
-
+import { LoaderSelf } from "@/components/loader/loader"
 
 const HomePage = () => {
 
@@ -66,10 +65,10 @@ const HomePage = () => {
 
   return (
     <div>
-      {!loading && (
+      {!loading? (
         <>
           <div>
-            <Header page='home' />
+            <Header page='home'/>
             <div className="w-full h-[500px] bg-[url('/food3.jpg')] bg-center bg-cover">
               <div className="bg-coloralpha w-full h-full flex items-center justify-center">
                 <div className="">
@@ -85,11 +84,11 @@ const HomePage = () => {
                       Restaurants
                     </div>
                     <div className="flex gap-3 overflow-y-scroll p-5">
-                      {hotel.map((item, index) => {
+                      {hotel.length>0 && hotel.map((item, index) => {
                         return (
                             <div className="bg-white min-w-[250px] w-[250px] h-[350px] border border-color1 rounded-2xl shadow-color0 overflow-hidden shadow-lg cursor-pointer" key={index} onClick={()=>router.push(`restaurant/${item._id}`)}>
                               <div className="relative w-full h-44 overflow-hidden shadow-md shadow-color0">
-                                <img className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform hover:scale-110 rounded-ss-lg rounded-se-lg cursor-pointer" src={`${SERVER_URL}/uploads/${item.imgUrl}`} />
+                                <img className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform hover:scale-110 rounded-ss-lg rounded-se-lg cursor-pointer" src={`${SERVER_URL}/uploads/${item.imgUrl}`} alt="restaurant image" />
                               </div>
                               <div className="p-2 flex flex-col gap-1">
                                 <div className="text-color5 font-semibold text-xl">{item.name}</div>
@@ -129,7 +128,7 @@ const HomePage = () => {
                       Food Item
                     </div>
                     <div className="flex gap-3 overflow-y-scroll p-5">
-                      {foodItem.map((item, index) => {
+                      {foodItem.length>=0 && foodItem.map((item, index) => {
                         return (
                             <div className="bg-white min-w-[250px] w-[250px] h-[400px] border border-color1 rounded-2xl shadow-color0 overflow-hidden shadow-lg cursor-pointer" key={index} onClick={()=>router.push(`food-item/${item._id}`)}>
 
@@ -146,9 +145,6 @@ const HomePage = () => {
                                     <div className="ml-1">
                                       <div className="font-semibold"><span className="mr-1 font-semibold">From:</span>{item.restaurantId.name}</div>
                                       <div className="flex">
-                                        {/* <span className="bg-color5 border-1 border-color4 px-2 py-[1px] rounded-full text-sm text-white ml-1">{item.restaurantId.totalReview.toString().length < 4
-                                          ? `${'0'.repeat(4 - item.restaurantId.totalReview.toString().length)}${item.restaurantId.totalReview}`
-                                          : item.restaurantId.totalReview}</span> */}
                                       </div>
                                     </div>
                                   </div>
@@ -188,6 +184,8 @@ const HomePage = () => {
             </div>
           </div>
         </>
+      ):(
+        <LoaderSelf/>
       )}
     </div>
   )

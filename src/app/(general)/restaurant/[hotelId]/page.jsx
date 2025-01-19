@@ -7,6 +7,7 @@ import RestaurantInfo from "@/components/restaurant/RestaurantInfo"
 import RestaurantFoodInfo from "@/components/restaurant/RestaurantFoodInfo"
 import { getUserInfo } from "@/actions/user"
 import { getHotelById } from "@/actions/hotel"
+import { LoaderSelf } from "@/components/loader/loader"
 
 const RestaurantPage = () => {
     const params=useParams()
@@ -33,7 +34,8 @@ const RestaurantPage = () => {
                     setHotel(response.hotel)
                 }
             } catch (error) {
-                toast.error(error)
+                console.log(error)
+                toast.error("somthing went wrong")
             }
         }
         if(hotelId){
@@ -46,7 +48,7 @@ const RestaurantPage = () => {
     }
 
     if(!hotel){
-        return <div>Hotel not found</div>
+        return <LoaderSelf/>
     }
 
   return (

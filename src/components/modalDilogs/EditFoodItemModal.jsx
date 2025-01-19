@@ -44,11 +44,19 @@ const EditFoodItemModal = () => {
 
     }, [data?.editFoodItem])
 
-    const handleImageChange = e => {
+    const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            setPreviewImage(e.target.files[0])
+          const file = e.target.files[0];
+          const fileSizeInKB = file.size / 1024; // Convert file size to KB
+      
+          if (fileSizeInKB > 500) {
+            toast.warning("File size must be less than 500 KB.");
+            return;
+          }
+      
+          setPreviewImage(file); // Update state with the valid file
         }
-    }
+      };
 
     const handletagkeydown = e => {
         if (e.keyCode === 13 && tag) {
